@@ -3,37 +3,40 @@ using UnityEngine.UI;
 
 public class SettingToggle : MonoBehaviour
 {
-    [SerializeField] private Button toggleOn;
-    [SerializeField] private Button toggleOff;
+    [SerializeField] private Button toggleButton;
+    [SerializeField] private Image toggleOn;
+    [SerializeField] private Image toggleOff;
+    [SerializeField] private bool startOn = false;
 
-    private void Awake()
+    public bool IsOn { get; private set; }
+
+    void Awake()
     {
-        toggleOn.onClick.AddListener(() => SetToggleState(true));
-        toggleOff.onClick.AddListener(() => SetToggleState(false));
+        IsOn = startOn;
+        ApplyVisual();
+        toggleButton.onClick.AddListener(Toggle);
     }
 
-    private void SetToggleState(bool value)
+    void OnDestroy()
     {
-        UpdateVisual(value);
+        toggleButton.onClick.RemoveListener(Toggle);
+    }
+
+    void Toggle()
+    {
+        IsOn = !IsOn;
+        ApplyVisual();
         HandleEffect();
     }
 
-    private void UpdateVisual(bool value)
+    void ApplyVisual()
     {
-        if (value)
-        {
-            toggleOn.gameObject.SetActive(true);
-            toggleOff.gameObject.SetActive(false);
-        }
-        else
-        {
-            toggleOn.gameObject.SetActive(false);
-            toggleOff.gameObject.SetActive(true);
-        }
+        toggleOn.gameObject.SetActive(IsOn);
+        toggleOff.gameObject.SetActive(!IsOn);
     }
 
-    private void HandleEffect()
+    void HandleEffect()
     {
-        //To be implemented
+        // Example: DepthOfFieldController.OnDepthOfFieldToggle?.Invoke(IsOn);
     }
 }

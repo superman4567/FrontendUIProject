@@ -6,8 +6,6 @@ using DG.Tweening;
 
 public class DepthOfFieldController : MonoBehaviour
 {
-    public static Action<bool> OnDepthOfFieldToggle;
-
     [SerializeField] private Volume volume;
     [SerializeField] private float tweenDuration = 0.5f;
 
@@ -22,13 +20,25 @@ public class DepthOfFieldController : MonoBehaviour
 
     private void OnEnable()
     {
-        OnDepthOfFieldToggle += HandleDepthOfFieldToggle;
+        PopupManager.OnShowPopup += OnShowPopup_Callback;
+        PopupManager.OnClosePopup += OnClosePopup_Callback;
     }
 
     private void OnDisable()
     {
-        OnDepthOfFieldToggle -= HandleDepthOfFieldToggle;
+        PopupManager.OnShowPopup -= OnShowPopup_Callback;
+        PopupManager.OnClosePopup -= OnClosePopup_Callback;
         focalLengthTween.Kill();
+    }
+
+    private void OnShowPopup_Callback()
+    {
+        HandleDepthOfFieldToggle(true);
+    }
+
+    private void OnClosePopup_Callback()
+    {
+        HandleDepthOfFieldToggle(false);
     }
 
     private void HandleDepthOfFieldToggle(bool enableEffect)
