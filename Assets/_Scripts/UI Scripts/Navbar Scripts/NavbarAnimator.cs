@@ -12,24 +12,28 @@ public sealed class NavbarAnimator : MonoBehaviour
 
     [Header("Timing")]
     [SerializeField] private float duration = 0.25f;
-    [SerializeField] private AnimationCurve ease = AnimationCurve.EaseInOut(0, 0, 1, 1);
     [SerializeField] private bool ignoreTimeScale = true;
 
-    [Header("Position")]
-    [SerializeField] private float hiddenYOffset = -238f;
-    [SerializeField] private float backgroundHiddenYOffset = -238f;
+    [Header("Animation Curves")]
+    [SerializeField] private AnimationCurve heightCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    [SerializeField] private AnimationCurve opacityCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+
+    [Header("Height Settings")]
+    [SerializeField] private float visibleHeight = 242f;
+    [SerializeField] private float hiddenHeight = 0f;
 
     public bool IsVisible { get; private set; }
 
-    float navbarVisibleY;
-    float backgroundVisibleY;
-    Sequence animationSequence;
+    private float backgroundVisibleHeight;
+    private float backgroundHiddenHeight;
+    private Sequence animationSequence;
 
     void Awake()
     {
         animationSequence = DOTween.Sequence();
-        navbarVisibleY = navbarTransform.anchoredPosition.y;
-        backgroundVisibleY = navbarBackgroundTransform.anchoredPosition.y;
+
+        backgroundVisibleHeight = navbarBackgroundTransform.sizeDelta.y;
+        backgroundHiddenHeight = hiddenHeight;
     }
 
     void OnDisable()
@@ -44,21 +48,40 @@ public sealed class NavbarAnimator : MonoBehaviour
         KillSequence();
         PrepareForAppear();
 
-        var taskCompletionSource = new TaskCompletionSource<bool>();
+        var tcs = new TaskCompletionSource<bool>();
 
-        animationSequence = DOTween.Sequence().SetEase(ease).SetUpdate(ignoreTimeScale);
-        animationSequence.Join(navbarTransform.DOAnchorPosY(navbarVisibleY, duration));
-        animationSequence.Join(navbarCanvasGroup.DOFade(1f, duration));
-        animationSequence.Join(navbarBackgroundTransform.DOAnchorPosY(backgroundVisibleY, duration));
-        animationSequence.Join(navbarBackgroundCanvasGroup.DOFade(1f, duration));
+        animationSequence = DOTween.Sequence().SetUpdate(ignoreTimeScale);
+
+        animationSequence.Join(DOVirtual.Float(hiddenHeight, visibleHeight, duration, h =>
+        {
+            Vector2 size = navbarTransform.sizeDelta;
+            size.y = h;
+            navbarTransform.sizeDelta = size;
+        }).SetEase(heightCurve));
+
+        animationSequence.Join(navbarCanvasGroup
+            .DOFade(1f, duration)
+            .SetEase(opacityCurve));
+
+        animationSequence.Join(DOVirtual.Float(backgroundHiddenHeight, backgroundVisibleHeight, duration, h =>
+        {
+            Vector2 size = navbarBackgroundTransform.sizeDelta;
+            size.y = h;
+            navbarBackgroundTransform.sizeDelta = size;
+        }).SetEase(heightCurve));
+
+        animationSequence.Join(navbarBackgroundCanvasGroup
+            .DOFade(1f, duration)
+            .SetEase(opacityCurve));
+
         animationSequence.OnComplete(() =>
         {
             IsVisible = true;
             navbarCanvasGroup.interactable = true;
-            taskCompletionSource.TrySetResult(true);
+            tcs.TrySetResult(true);
         });
 
-        await taskCompletionSource.Task;
+        await tcs.Task;
     }
 
     public async Task DisappearAsync()
@@ -68,20 +91,39 @@ public sealed class NavbarAnimator : MonoBehaviour
         KillSequence();
         PrepareForDisappear();
 
-        var taskCompletionSource = new TaskCompletionSource<bool>();
+        var tcs = new TaskCompletionSource<bool>();
 
-        animationSequence = DOTween.Sequence().SetEase(ease).SetUpdate(ignoreTimeScale);
-        animationSequence.Join(navbarTransform.DOAnchorPosY(navbarVisibleY + hiddenYOffset, duration));
-        animationSequence.Join(navbarCanvasGroup.DOFade(0f, duration));
-        animationSequence.Join(navbarBackgroundTransform.DOAnchorPosY(backgroundVisibleY + backgroundHiddenYOffset, duration));
-        animationSequence.Join(navbarBackgroundCanvasGroup.DOFade(0f, duration));
+        animationSequence = DOTween.Sequence().SetUpdate(ignoreTimeScale);
+
+        animationSequence.Join(DOVirtual.Float(visibleHeight, hiddenHeight, duration, h =>
+        {
+            Vector2 size = navbarTransform.sizeDelta;
+            size.y = h;
+            navbarTransform.sizeDelta = size;
+        }).SetEase(heightCurve));
+
+        animationSequence.Join(navbarCanvasGroup
+            .DOFade(0f, duration)
+            .SetEase(opacityCurve));
+
+        animationSequence.Join(DOVirtual.Float(backgroundVisibleHeight, backgroundHiddenHeight, duration, h =>
+        {
+            Vector2 size = navbarBackgroundTransform.sizeDelta;
+            size.y = h;
+            navbarBackgroundTransform.sizeDelta = size;
+        }).SetEase(heightCurve));
+
+        animationSequence.Join(navbarBackgroundCanvasGroup
+            .DOFade(0f, duration)
+            .SetEase(opacityCurve));
+
         animationSequence.OnComplete(() =>
         {
             IsVisible = false;
-            taskCompletionSource.TrySetResult(true);
+            tcs.TrySetResult(true);
         });
 
-        await taskCompletionSource.Task;
+        await tcs.Task;
     }
 
     void PrepareForAppear()
@@ -89,12 +131,10 @@ public sealed class NavbarAnimator : MonoBehaviour
         navbarCanvasGroup.blocksRaycasts = true;
         navbarCanvasGroup.interactable = false;
 
-        Vector2 navbarPosition = navbarTransform.anchoredPosition;
-        navbarTransform.anchoredPosition = new Vector2(navbarPosition.x, navbarVisibleY + hiddenYOffset);
+        navbarTransform.sizeDelta = new Vector2(navbarTransform.sizeDelta.x, hiddenHeight);
         navbarCanvasGroup.alpha = 0f;
 
-        Vector2 backgroundPosition = navbarBackgroundTransform.anchoredPosition;
-        navbarBackgroundTransform.anchoredPosition = new Vector2(backgroundPosition.x, backgroundVisibleY + backgroundHiddenYOffset);
+        navbarBackgroundTransform.sizeDelta = new Vector2(navbarBackgroundTransform.sizeDelta.x, backgroundHiddenHeight);
         navbarBackgroundCanvasGroup.alpha = 0f;
     }
 
@@ -102,23 +142,6 @@ public sealed class NavbarAnimator : MonoBehaviour
     {
         navbarCanvasGroup.interactable = false;
         navbarCanvasGroup.blocksRaycasts = false;
-    }
-
-    void SetHiddenImmediate()
-    {
-        KillSequence();
-
-        Vector2 navbarPosition = navbarTransform.anchoredPosition;
-        navbarTransform.anchoredPosition = new Vector2(navbarPosition.x, navbarVisibleY + hiddenYOffset);
-        navbarCanvasGroup.alpha = 0f;
-        navbarCanvasGroup.interactable = false;
-        navbarCanvasGroup.blocksRaycasts = false;
-
-        Vector2 backgroundPosition = navbarBackgroundTransform.anchoredPosition;
-        navbarBackgroundTransform.anchoredPosition = new Vector2(backgroundPosition.x, backgroundVisibleY + backgroundHiddenYOffset);
-        navbarBackgroundCanvasGroup.alpha = 0f;
-
-        IsVisible = false;
     }
 
     void KillSequence()

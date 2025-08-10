@@ -1,0 +1,16 @@
+{
+    "name": "_TripleDotStudio_PopupAssembly",
+    "rootNamespace": "",
+    "references": [
+        "GUID:94c4c2cfec6ad674f959017bceaf58e1"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
