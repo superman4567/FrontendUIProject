@@ -37,7 +37,7 @@ public class NavbarButton : MonoBehaviour, INavbarButton
     [SerializeField] private AnimationCurve textFadeCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
     [SerializeField] private AnimationCurve layoutWidthCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
-    Sequence animationSequence;
+    private Sequence animationSequence;
 
     public NavbarEnums ContentKey => buttonType;
     public bool IsOn { get; private set; }

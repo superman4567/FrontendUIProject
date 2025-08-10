@@ -1,38 +1,68 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(CanvasGroup))]
-public class PopupController : MonoBehaviour
+public abstract class PopupControllerBase : MonoBehaviour, IPopup
 {
-    [SerializeField] PopupEnums key;
-    [SerializeField] bool startHidden = true;
+    [SerializeField] private PopupEnums key;
+    [SerializeField] private Button closeButton;
 
-    CanvasGroup popupCanvasGroup;
-
+    protected CanvasGroup canvasGroup;
     public PopupEnums Key => key;
+    public bool IsShown { get; private set; }
 
-    void Awake()
+    protected virtual void Awake()
     {
-        popupCanvasGroup = GetComponent<CanvasGroup>();
-        if (startHidden) InstantHide();
-        else InstantShow();
+        canvasGroup = GetComponentInParent<CanvasGroup>();
+
+        PopupManager.Instance.Register(this);
+        closeButton.onClick.AddListener(HandleCloseClicked);
     }
 
-    void OnEnable() => PopupManager.Instance?.Register(this);
-    void OnDisable() => PopupManager.Instance?.Unregister(this);
-
-    public void InstantShow()
+    protected virtual void OnDestroy()
     {
-        gameObject.SetActive(true);
-        popupCanvasGroup.alpha = 1f;
-        popupCanvasGroup.interactable = true;
-        popupCanvasGroup.blocksRaycasts = true;
+        closeButton.onClick.RemoveListener(HandleCloseClicked);
+        PopupManager.Instance.Unregister(this);
     }
 
-    public void InstantHide()
+    protected virtual void Start()
     {
-        popupCanvasGroup.alpha = 0f;
-        popupCanvasGroup.interactable = false;
-        popupCanvasGroup.blocksRaycasts = false;
-        gameObject.SetActive(false);
+        InstantHide();
     }
+
+    public virtual void InstantShow()
+    {
+        var parentGO = transform.parent.gameObject;
+        parentGO.SetActive(true);
+        canvasGroup.alpha = 1f;
+        canvasGroup.interactable = true;
+        canvasGroup.blocksRaycasts = true;
+        IsShown = true;
+        OnOpened();
+    }
+
+    public virtual void InstantHide()
+    {
+        canvasGroup.alpha = 0f;
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
+        var parentGO = transform.parent.gameObject;
+        parentGO.SetActive(false);
+        IsShown = false;
+        OnClosed();
+    }
+
+    private void HandleCloseClicked()
+    {
+        if (!CanClose()) return;
+        OnBeforeClose();
+        PopupManager.Instance.CloseCurrent();
+    }
+
+    public void Show() => InstantShow();
+    public void Hide() => InstantHide();
+
+    protected virtual void OnOpened() { }
+    protected virtual void OnClosed() { }
+    protected virtual void OnBeforeClose() { }
+    protected virtual bool CanClose() => true;
 }

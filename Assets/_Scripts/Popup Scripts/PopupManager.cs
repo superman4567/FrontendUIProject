@@ -1,15 +1,20 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(-10000)]
 public class PopupManager : MonoBehaviour
 {
     public static PopupManager Instance { get; private set; }
 
-    readonly Dictionary<PopupEnums, PopupController> byKey = new Dictionary<PopupEnums, PopupController>();
-    readonly Stack<PopupController> history = new Stack<PopupController>();
-    readonly HashSet<PopupEnums> everShown = new HashSet<PopupEnums>();
+    public static Action OnShowPopup;
+    public static Action OnClosePopup;
 
-    PopupController current;
+    readonly Dictionary<PopupEnums, PopupControllerBase> byKey = new();
+    readonly Stack<PopupControllerBase> history = new();
+    readonly HashSet<PopupEnums> everShown = new();
+
+    private PopupControllerBase current;
 
     public PopupEnums? CurrentKey => current ? current.Key : (PopupEnums?)null;
     public PopupEnums? PreviousKey => history.Count > 0 ? history.Peek().Key : (PopupEnums?)null;
@@ -18,15 +23,14 @@ public class PopupManager : MonoBehaviour
     {
         if (Instance && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
-    public void Register(PopupController p)
+    public void Register(PopupControllerBase p)
     {
         if (!byKey.ContainsKey(p.Key)) byKey.Add(p.Key, p);
     }
 
-    public void Unregister(PopupController p)
+    public void Unregister(PopupControllerBase p)
     {
         if (byKey.TryGetValue(p.Key, out var refp) && refp == p) byKey.Remove(p.Key);
     }
@@ -34,7 +38,8 @@ public class PopupManager : MonoBehaviour
     public bool Show(PopupEnums key)
     {
         if (!byKey.TryGetValue(key, out var next)) return false;
-        if (current == next) return true;
+
+        if (current == next) return false;
 
         if (current)
         {
@@ -45,6 +50,8 @@ public class PopupManager : MonoBehaviour
         current = next;
         current.InstantShow();
         everShown.Add(key);
+
+        OnShowPopup?.Invoke();
         return true;
     }
 
@@ -64,6 +71,8 @@ public class PopupManager : MonoBehaviour
 
         current.InstantHide();
         current = null;
+
+        OnClosePopup?.Invoke();
 
         if (history.Count > 0)
         {

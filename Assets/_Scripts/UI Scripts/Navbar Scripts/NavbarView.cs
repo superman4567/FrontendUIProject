@@ -24,18 +24,6 @@ public sealed class NavbarView : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        foreach (var button in buttonBehaviours)
-        {
-            if (button.ContentKey == NavbarEnums.House)
-            {
-                button.OnClick();
-                break;
-            }
-        }
-    }
-
     async void OnButtonOn(INavbarButton button)
     {
         if (button.IsLocked) return;
