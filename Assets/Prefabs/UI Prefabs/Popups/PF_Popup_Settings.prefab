@@ -800,6 +800,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3143812064499317174, guid: 0cb16973dc66c1141b2fa424eb806d28, type: 3}
+      propertyPath: key
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3172879599775099381, guid: 0cb16973dc66c1141b2fa424eb806d28, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2721,20 +2725,31 @@ PrefabInstance:
       addedObject: {fileID: 8855955228967776607}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5625470836988189082, guid: 0cb16973dc66c1141b2fa424eb806d28, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5411492054743528645}
+      insertIndex: 1
+      addedObject: {fileID: 7402315009980709642}
   m_SourcePrefab: {fileID: 100100000, guid: 0cb16973dc66c1141b2fa424eb806d28, type: 3}
 --- !u!224 &894399783047347989 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7841295737181614694, guid: 0cb16973dc66c1141b2fa424eb806d28, type: 3}
   m_PrefabInstance: {fileID: 6969438280392084851}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1666264802437942937 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8622044947711476714, guid: 0cb16973dc66c1141b2fa424eb806d28, type: 3}
+  m_PrefabInstance: {fileID: 6969438280392084851}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3362435043561018601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ffe00f2b29422943b0395adaf42a66a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3362435043561018601 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5625470836988189082, guid: 0cb16973dc66c1141b2fa424eb806d28, type: 3}
   m_PrefabInstance: {fileID: 6969438280392084851}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5411492054743528645
+--- !u!114 &7402315009980709642
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2748,6 +2763,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: 1
   closeButton: {fileID: 6326306478001281182}
+  canvasGroup: {fileID: 8142927313231503471}
+  popupAnimator: {fileID: 1666264802437942937}
 --- !u!114 &6326306478001281182 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3995789123427456493, guid: 0cb16973dc66c1141b2fa424eb806d28, type: 3}
@@ -2759,6 +2776,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!225 &8142927313231503471 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 1277076223725071644, guid: 0cb16973dc66c1141b2fa424eb806d28, type: 3}
+  m_PrefabInstance: {fileID: 6969438280392084851}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8793356306295295805
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -12,9 +12,8 @@ public class PopupManager : MonoBehaviour
 
     readonly Dictionary<PopupEnums, PopupControllerBase> byKey = new();
     readonly Stack<PopupControllerBase> history = new();
-    readonly HashSet<PopupEnums> everShown = new();
 
-    private PopupControllerBase current;
+    PopupControllerBase current;
 
     public PopupEnums? CurrentKey => current ? current.Key : (PopupEnums?)null;
     public PopupEnums? PreviousKey => history.Count > 0 ? history.Peek().Key : (PopupEnums?)null;
@@ -38,19 +37,12 @@ public class PopupManager : MonoBehaviour
     public bool Show(PopupEnums key)
     {
         if (!byKey.TryGetValue(key, out var next)) return false;
-
         if (current == next) return false;
 
-        if (current)
-        {
-            history.Push(current);
-            current.InstantHide();
-        }
+        if (current) { history.Push(current); current.Hide(); }
 
         current = next;
-        current.InstantShow();
-        everShown.Add(key);
-
+        current.Show();
         OnShowPopup?.Invoke();
         return true;
     }
@@ -59,9 +51,9 @@ public class PopupManager : MonoBehaviour
     {
         if (current == null || history.Count == 0) return false;
 
-        current.InstantHide();
+        current.Hide();
         current = history.Pop();
-        current.InstantShow();
+        current.Show();
         return true;
     }
 
@@ -69,26 +61,24 @@ public class PopupManager : MonoBehaviour
     {
         if (current == null) return false;
 
-        current.InstantHide();
+        current.Hide();
         current = null;
-
         OnClosePopup?.Invoke();
 
         if (history.Count > 0)
         {
             current = history.Pop();
-            current.InstantShow();
+            current.Show();
         }
         return true;
     }
 
     public void CloseAll()
     {
-        if (current) current.InstantHide();
+        if (current) current.Hide();
         current = null;
-        while (history.Count > 0) history.Pop().InstantHide();
+        while (history.Count > 0) history.Pop().Hide();
     }
 
     public bool IsOpen(PopupEnums key) => current && current.Key.Equals(key);
-    public bool WasEverShown(PopupEnums key) => everShown.Contains(key);
 }

@@ -6,60 +6,66 @@ public abstract class PopupControllerBase : MonoBehaviour, IPopup
     [SerializeField] private PopupEnums key;
     [SerializeField] private Button closeButton;
 
-    protected CanvasGroup canvasGroup;
+    [SerializeField] protected CanvasGroup canvasGroup;
+    [SerializeField] protected PopupAnimator popupAnimator;
+
     public PopupEnums Key => key;
     public bool IsShown { get; private set; }
 
     protected virtual void Awake()
     {
-        canvasGroup = GetComponentInParent<CanvasGroup>();
-
         PopupManager.Instance.Register(this);
         closeButton.onClick.AddListener(HandleCloseClicked);
+
+        popupAnimator.Shown += HandleShown;
+        popupAnimator.Hidden += HandleHidden;
     }
 
     protected virtual void OnDestroy()
     {
         closeButton.onClick.RemoveListener(HandleCloseClicked);
         PopupManager.Instance.Unregister(this);
+
+        popupAnimator.Shown -= HandleShown;
+        popupAnimator.Hidden -= HandleHidden;
     }
 
     protected virtual void Start()
     {
-        InstantHide();
+        transform.parent.gameObject.SetActive(false);
+        popupAnimator.InstantHide();
     }
 
-    public virtual void InstantShow()
+    public void Show()
     {
-        var parentGO = transform.parent.gameObject;
-        parentGO.SetActive(true);
-        canvasGroup.alpha = 1f;
-        canvasGroup.interactable = true;
-        canvasGroup.blocksRaycasts = true;
+        transform.parent.gameObject.SetActive(true);
+        popupAnimator.Show();
+    }
+
+    public void Hide()
+    {
+        popupAnimator.Hide();
+    }
+
+    void HandleShown()
+    {
         IsShown = true;
         OnOpened();
     }
 
-    public virtual void InstantHide()
+    void HandleHidden()
     {
-        canvasGroup.alpha = 0f;
-        canvasGroup.interactable = false;
-        canvasGroup.blocksRaycasts = false;
-        var parentGO = transform.parent.gameObject;
-        parentGO.SetActive(false);
         IsShown = false;
         OnClosed();
+        transform.parent.gameObject.SetActive(false);
     }
 
-    private void HandleCloseClicked()
+    void HandleCloseClicked()
     {
         if (!CanClose()) return;
         OnBeforeClose();
         PopupManager.Instance.CloseCurrent();
     }
-
-    public void Show() => InstantShow();
-    public void Hide() => InstantHide();
 
     protected virtual void OnOpened() { }
     protected virtual void OnClosed() { }
