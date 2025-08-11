@@ -17,7 +17,63 @@ MonoBehaviour:
   m_SharedData: {fileID: 11400000, guid: 30902c5a4a653dc4a805b35131ff5bff, type: 2}
   m_Metadata:
     m_Items: []
-  m_TableData: []
+  m_TableData:
+  - m_Id: 35055128576
+    m_Localized: Full
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37844340736
+    m_Localized: Home
+    m_Metadata:
+      m_Items: []
+  - m_Id: 39584976896
+    m_Localized: Shop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 41526939648
+    m_Localized: Book
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43745726464
+    m_Localized: Locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 47185055744
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 534781284352
+    m_Localized: Sound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 536756801536
+    m_Localized: Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 539852197888
+    m_Localized: Vibrations
+    m_Metadata:
+      m_Items: []
+  - m_Id: 541823520768
+    m_Localized: Notifications
+    m_Metadata:
+      m_Items: []
+  - m_Id: 680986333184
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 765761605632
+    m_Localized: Privacy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 914135109632
+    m_Localized: Support
+    m_Metadata:
+      m_Items: []
+  - m_Id: 986906284032
+    m_Localized: Level Completed
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

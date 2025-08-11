@@ -784,6 +784,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3573518970147617933, guid: 0cb16973dc66c1141b2fa424eb806d28, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 47185055744
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573518970147617933, guid: 0cb16973dc66c1141b2fa424eb806d28, type: 3}
+      propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
+      value: GUID:30902c5a4a653dc4a805b35131ff5bff
+      objectReference: {fileID: 0}
     - target: {fileID: 3593512204200323279, guid: 0cb16973dc66c1141b2fa424eb806d28, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

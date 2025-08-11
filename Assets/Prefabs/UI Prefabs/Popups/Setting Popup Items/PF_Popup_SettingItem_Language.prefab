@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PF_Popup_SettingItem_Language
       objectReference: {fileID: 0}
+    - target: {fileID: 5282797425641809358, guid: 8acd459088bc4c94bb4b54044ad3325d, type: 3}
+      propertyPath: nextButtonText
+      value: 
+      objectReference: {fileID: 6292963986593512822}
     - target: {fileID: 5867235721196532405, guid: 8acd459088bc4c94bb4b54044ad3325d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -200,8 +204,20 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1457999603898141928, guid: 8acd459088bc4c94bb4b54044ad3325d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8acd459088bc4c94bb4b54044ad3325d, type: 3}
+--- !u!114 &6292963986593512822 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8475021865755629458, guid: 8acd459088bc4c94bb4b54044ad3325d, type: 3}
+  m_PrefabInstance: {fileID: 2506334678918834916}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
