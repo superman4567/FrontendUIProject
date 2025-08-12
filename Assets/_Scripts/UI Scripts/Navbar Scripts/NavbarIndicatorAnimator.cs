@@ -26,6 +26,11 @@ public class NavbarIndicatorAnimator : MonoBehaviour
     private RectTransform lastSelectedRect;
     private Tween activeTween;
 
+    void Awake()
+    {
+        HideImmediately();   // ensure hidden on scene load
+    }
+
     void OnEnable()
     {
         NavbarButton.ButtonSelected += HandleSelected;
@@ -46,6 +51,21 @@ public class NavbarIndicatorAnimator : MonoBehaviour
         }
 
         activeTween.Kill();
+    }
+
+    public void HideImmediately()
+    {
+        if (indicatorCanvasGroup != null) indicatorCanvasGroup.alpha = 0f;
+
+        // optional: collapse width so it doesn’t flash in layout reflows
+        var parentRect = (RectTransform)indicator.parent;
+        indicator.anchorMin = new Vector2(0.5f, 0f);
+        indicator.anchorMax = new Vector2(0.5f, 1f);
+        indicator.pivot = new Vector2(0.5f, 0.5f);
+        indicator.offsetMin = new Vector2(0f, indicator.offsetMin.y);
+        indicator.offsetMax = new Vector2(0f, indicator.offsetMax.y);
+
+        lastSelectedButton = null;
     }
 
     void HandleSelected(NavbarButton selectedButton, RectTransform targetRect)

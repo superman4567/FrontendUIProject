@@ -180,6 +180,18 @@ PrefabInstance:
       propertyPath: m_text
       value: Language
       objectReference: {fileID: 0}
+    - target: {fileID: 8475021865755629458, guid: 8acd459088bc4c94bb4b54044ad3325d, type: 3}
+      propertyPath: m_fontSize
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 8475021865755629458, guid: 8acd459088bc4c94bb4b54044ad3325d, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 48
+      objectReference: {fileID: 0}
+    - target: {fileID: 8475021865755629458, guid: 8acd459088bc4c94bb4b54044ad3325d, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8732218416581757332, guid: 8acd459088bc4c94bb4b54044ad3325d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

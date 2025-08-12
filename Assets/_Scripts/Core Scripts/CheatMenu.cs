@@ -7,6 +7,12 @@ public class CheatMenu : MonoBehaviour
     public NavbarView navbarView;
     public NavbarAnimator navbarAnimator;
     public NavbarButton[] navbarButtons;
+    public GameObject levelCompletePanel;
+
+    private void Start()
+    {
+        DeactivateAll();
+    }
 
     public async void ShowNavbar()
     {
@@ -92,5 +98,11 @@ public class CheatMenu : MonoBehaviour
                 return i;
         }
         return -1;
+    }
+
+    public void ToggleLevelComplete()
+    {
+        bool isActive = levelCompletePanel.activeSelf;
+        levelCompletePanel.SetActive(!isActive); 
     }
 }

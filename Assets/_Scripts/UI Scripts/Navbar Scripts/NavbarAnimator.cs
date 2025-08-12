@@ -41,6 +41,11 @@ public sealed class NavbarAnimator : MonoBehaviour
         KillSequence();
     }
 
+    private async void Start()
+    {
+        await AppearIfHiddenAsync();
+    }
+
     public async Task AppearIfHiddenAsync()
     {
         if (IsVisible) return;
