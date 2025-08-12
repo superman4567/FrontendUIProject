@@ -108,6 +108,14 @@ PrefabInstance:
       propertyPath: buttonType
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8888884373157520001, guid: d053b5dfbfee5e14782590fb14563fb1, type: 3}
+      propertyPath: stringreference.m_TableEntryReference.m_KeyId
+      value: 41526939648
+      objectReference: {fileID: 0}
+    - target: {fileID: 8888884373157520001, guid: d053b5dfbfee5e14782590fb14563fb1, type: 3}
+      propertyPath: stringreference.m_TableReference.m_TableCollectionName
+      value: GUID:30902c5a4a653dc4a805b35131ff5bff
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

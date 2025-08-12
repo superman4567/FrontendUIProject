@@ -5,23 +5,42 @@ public class CheatMenuUGUI : MonoBehaviour
     [Header("Target")]
     [SerializeField] private CheatMenu cheatMenu;
 
-    [Header("Layout")]
-    [SerializeField] private Vector2 anchor = new Vector2(10, 10);
+    [Header("Layout (reference units)")]
+    [SerializeField] private Vector2 anchor = new Vector2(10, 10); // x is ignored for width-fill
     [SerializeField] private Vector2 panelSize = new Vector2(300, 400);
     [SerializeField] private float headerHeight = 24f;
 
-    private bool isOpen = false;
-    private Vector2 scroll;
-    private NavbarEnums selectedKey = default;
+    [Header("IMGUI Scale")]
+    [SerializeField] private bool scaleWithScreen = true;
+    [SerializeField] private float referenceHeight = 1080f;
+    [SerializeField] private float minScale = 0.75f;
+    [SerializeField] private float maxScale = 2.0f;
 
-    private bool mouseDownOnHeader = false;
-    private bool didDrag = false;
-    private Vector2 dragOffset;
-    private Vector2 mouseDownPos;
+    bool isOpen = false;
+    Vector2 scroll;
+    NavbarEnums selectedKey = default;
+
+    bool mouseDownOnHeader = false;
+    bool didDrag = false;
+    float dragOffsetY;
+    Vector2 mouseDownPos;
 
     void OnGUI()
     {
-        Rect headerRect = new Rect(anchor.x, anchor.y, panelSize.x, headerHeight);
+        // scale so UI isn't tiny in Simulator
+        Matrix4x4 prev = GUI.matrix;
+        float uiScale = 1f;
+        if (scaleWithScreen && referenceHeight > 0f)
+        {
+            uiScale = Mathf.Clamp(Screen.height / referenceHeight, minScale, maxScale);
+            GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3(uiScale, uiScale, 1f));
+        }
+
+        // full width in *reference* units
+        float fullWidth = Screen.width / uiScale;
+
+        // HEADER (full width)
+        Rect headerRect = new Rect(0f, anchor.y, fullWidth, headerHeight);
         Event e = Event.current;
 
         if (e.type == EventType.MouseDown && headerRect.Contains(e.mousePosition))
@@ -29,12 +48,12 @@ public class CheatMenuUGUI : MonoBehaviour
             mouseDownOnHeader = true;
             didDrag = false;
             mouseDownPos = e.mousePosition;
-            dragOffset = e.mousePosition - anchor;
+            dragOffsetY = e.mousePosition.y - anchor.y;
             e.Use();
         }
         else if (e.type == EventType.MouseDrag && mouseDownOnHeader)
         {
-            anchor = e.mousePosition - dragOffset;
+            anchor.y = e.mousePosition.y - dragOffsetY; // vertical-only drag
             if ((e.mousePosition - mouseDownPos).sqrMagnitude > 1f) didDrag = true;
             e.Use();
         }
@@ -55,9 +74,20 @@ public class CheatMenuUGUI : MonoBehaviour
             e.Use();
         }
 
-        if (!isOpen || cheatMenu == null) return;
+        if (!isOpen || cheatMenu == null)
+        {
+            GUI.matrix = prev;
+            return;
+        }
 
-        Rect panelRect = new Rect(anchor.x, anchor.y + headerHeight + 2f, panelSize.x, panelSize.y);
+        // CONTENT (full width)
+        Rect panelRect = new Rect(
+            0f,
+            anchor.y + headerHeight + 2f,
+            fullWidth,
+            panelSize.y
+        );
+
         GUILayout.BeginArea(panelRect, GUI.skin.box);
         GUILayout.Label("<b>Cheat Menu Debug</b>", new GUIStyle(GUI.skin.label) { richText = true });
 
@@ -111,10 +141,9 @@ public class CheatMenuUGUI : MonoBehaviour
 
         GUILayout.EndScrollView();
         GUILayout.EndArea();
+
+        GUI.matrix = prev;
     }
 
-    GUIStyle EditorLabel()
-    {
-        return new GUIStyle(GUI.skin.label) { fontStyle = FontStyle.Bold };
-    }
+    GUIStyle EditorLabel() => new GUIStyle(GUI.skin.label) { fontStyle = FontStyle.Bold };
 }

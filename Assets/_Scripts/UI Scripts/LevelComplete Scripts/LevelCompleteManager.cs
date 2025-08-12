@@ -2,15 +2,10 @@ using UnityEngine;
 
 public class LevelCompleteManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private GameObject levelCompletePanel;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        levelCompletePanel.SetActive(false);
     }
 }

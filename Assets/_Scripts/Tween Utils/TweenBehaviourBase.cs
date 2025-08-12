@@ -14,7 +14,7 @@ public abstract class TweenBehaviourBase : MonoBehaviour, IPointerEnterHandler, 
     public AnimationCurve curve = AnimationCurve.EaseInOut(0, 0, 1, 1);
     public bool ignoreTimeScale = true;
     public bool autoReverse = false;
-    [Min(0)] public int loopCount = 0;
+    [Min(-1)] public int loopCount = 0;
     public bool resetOnDisable = true;
     public bool captureStartFromCurrent = false;
     public UnityEvent onTweenStart;
@@ -119,10 +119,10 @@ public abstract class TweenBehaviourBase : MonoBehaviour, IPointerEnterHandler, 
                 firstLeg = false;
                 _playReverse = !_playReverse;
             }
-            else if (loopsLeft > 0)
+            else if (loopCount < 0 || loopsLeft > 0)
             {
-                loopsLeft--;
-                _playReverse = !_playReverse;
+                if (loopsLeft > 0) loopsLeft--;
+                _playReverse = !_playReverse; // ping-pong
             }
             else break;
 

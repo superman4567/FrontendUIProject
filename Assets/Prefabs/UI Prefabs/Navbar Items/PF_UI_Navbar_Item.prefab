@@ -314,7 +314,6 @@ GameObject:
   - component: {fileID: 7936337081228365097}
   - component: {fileID: 2262476796577946829}
   - component: {fileID: 8888884373157520001}
-  - component: {fileID: 810143111415708124}
   m_Layer: 5
   m_Name: PF_UI_Navbar_Item
   m_TagString: Untagged
@@ -496,64 +495,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
---- !u!114 &810143111415708124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7625373761267013849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aeece6ac9513d34eb33efe41e66af25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trigger: 4
-  target: {fileID: 7936337081228365097}
-  viaCodeOnly: 0
-  delay: 0
-  duration: 0.2
-  curve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  ignoreTimeScale: 1
-  autoReverse: 0
-  loopCount: 0
-  resetOnDisable: 1
-  captureStartFromCurrent: 0
-  onTweenStart:
-    m_PersistentCalls:
-      m_Calls: []
-  onTweenComplete:
-    m_PersistentCalls:
-      m_Calls: []
-  onReverseComplete:
-    m_PersistentCalls:
-      m_Calls: []
-  startScale: {x: 1, y: 1, z: 1}
-  targetScale: {x: 1.05, y: 1.05, z: 1.05}
-  axisMask: {x: 1, y: 1, z: 1}
 --- !u!1 &8219498078652793916
 GameObject:
   m_ObjectHideFlags: 0

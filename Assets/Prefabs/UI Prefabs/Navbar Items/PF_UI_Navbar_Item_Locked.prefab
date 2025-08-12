@@ -12,6 +12,18 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 949449360538204282, guid: d053b5dfbfee5e14782590fb14563fb1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1148514063395645084, guid: d053b5dfbfee5e14782590fb14563fb1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1248478152587763364, guid: d053b5dfbfee5e14782590fb14563fb1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5340012310763584069, guid: d053b5dfbfee5e14782590fb14563fb1, type: 3}
       propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
       value: 43745726464
@@ -112,9 +124,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8051278398254611289, guid: d053b5dfbfee5e14782590fb14563fb1, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8888884373157520001, guid: d053b5dfbfee5e14782590fb14563fb1, type: 3}
       propertyPath: buttonType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8888884373157520001, guid: d053b5dfbfee5e14782590fb14563fb1, type: 3}
+      propertyPath: stringreference.m_TableEntryReference.m_KeyId
+      value: 43745726464
+      objectReference: {fileID: 0}
+    - target: {fileID: 8888884373157520001, guid: d053b5dfbfee5e14782590fb14563fb1, type: 3}
+      propertyPath: stringreference.m_TableReference.m_TableCollectionName
+      value: GUID:30902c5a4a653dc4a805b35131ff5bff
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
