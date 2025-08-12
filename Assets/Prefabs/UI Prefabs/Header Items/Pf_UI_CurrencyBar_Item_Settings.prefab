@@ -166,6 +166,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1891910206717885806, guid: 799ae7be4d0cd7043bbf8f64478df013, type: 3}
       insertIndex: 4
       addedObject: {fileID: 2977655520824648106}
+    - targetCorrespondingSourceObject: {fileID: 1891910206717885806, guid: 799ae7be4d0cd7043bbf8f64478df013, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2491477702271032352}
   m_SourcePrefab: {fileID: 100100000, guid: 799ae7be4d0cd7043bbf8f64478df013, type: 3}
 --- !u!1 &2850197651398904606 stripped
 GameObject:
@@ -230,6 +233,64 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: 1
   clearHistoryFirst: 1
+--- !u!114 &2491477702271032352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2850197651398904606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aeece6ac9513d34eb33efe41e66af25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: 6
+  target: {fileID: 6998000557010515289}
+  viaCodeOnly: 0
+  delay: 0
+  duration: 0.2
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  ignoreTimeScale: 1
+  autoReverse: 0
+  loopCount: 0
+  resetOnDisable: 1
+  captureStartFromCurrent: 0
+  onTweenStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onTweenComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onReverseComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  startScale: {x: 1, y: 1, z: 1}
+  targetScale: {x: 1.05, y: 1.05, z: 1.05}
+  axisMask: {x: 1, y: 1, z: 1}
 --- !u!114 &6990304173015051318 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6687292931003128390, guid: 799ae7be4d0cd7043bbf8f64478df013, type: 3}
@@ -241,3 +302,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &6998000557010515289 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6688234172987392809, guid: 799ae7be4d0cd7043bbf8f64478df013, type: 3}
+  m_PrefabInstance: {fileID: 4453081357086766704}
+  m_PrefabAsset: {fileID: 0}

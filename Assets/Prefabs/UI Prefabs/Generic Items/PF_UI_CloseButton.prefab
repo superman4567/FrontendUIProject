@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4531991496206348092}
   - component: {fileID: 6452077331208831432}
   - component: {fileID: 963475360341354714}
-  - component: {fileID: 3854403735346135540}
+  - component: {fileID: 1610503750320929006}
   m_Layer: 3
   m_Name: PF_UI_CloseButton
   m_TagString: Untagged
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &3854403735346135540
+--- !u!114 &1610503750320929006
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,6 +151,52 @@ MonoBehaviour:
   m_GameObject: {fileID: 6219957157245636787}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cd77d0eed11973498fe8627495ca4b1, type: 3}
+  m_Script: {fileID: 11500000, guid: 1aeece6ac9513d34eb33efe41e66af25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trigger: 6
+  target: {fileID: 2481193741515881133}
+  viaCodeOnly: 0
+  delay: 0
+  duration: 0.2
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  ignoreTimeScale: 1
+  autoReverse: 0
+  loopCount: 0
+  resetOnDisable: 1
+  captureStartFromCurrent: 0
+  onTweenStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onTweenComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onReverseComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  startScale: {x: 1, y: 1, z: 1}
+  targetScale: {x: 1.05, y: 1.05, z: 1.05}
+  axisMask: {x: 1, y: 1, z: 1}

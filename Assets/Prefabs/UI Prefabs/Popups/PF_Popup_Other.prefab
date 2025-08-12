@@ -2144,6 +2144,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 746632042066670994, guid: 799f88c9c1ba0ad4b90f836633778d3b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3011261322854614667, guid: 799f88c9c1ba0ad4b90f836633778d3b, type: 3}
       propertyPath: m_Name
       value: PF_Popup_Content_UnderContrsuction
